@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICyDEMO - Plan Integral de Implementación y Recursos</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        :root {
+            --colef-blue: #0e5d2e;
+            --colef-burgundy: #9C2007;
+            --colef-gold: #D39F10;
+            --colef-light-blue: #0e4f24
+            --light-gray: #084683
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+           background-color: #ff6200;
+            color: white
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 5px solid var(--colef-gold);
+        }
+        
+        .colef-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .colef-logo {
+            font-size: 2.5rem;
+            color: var(--colef-gold);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .executive-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--colef-burgundy);
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--colef-blue);
+        }
+        
+        h2 {
+            color: var(--colef-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3 {
+            color: var(--colef-burgundy);
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        .highlight-box {
+            background: rgba(142, 30, 65, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--colef-gold);
+        }
+        
+        .timeline-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline-phase {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--colef-blue);
+            position: relative;
+        }
+        
+        .phase-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--colef-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .phase-duration {
+            display: inline-block;
+            background: var(--colef-gold);
+            color: var(--colef-blue);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .resource-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--colef-light-blue);
+        }
+        
+        .role-tag {
+            display: inline-block;
+            background: var(--colef-blue);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .budget-table th {
+            background: var(--colef-blue);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .budget-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .budget-table tr:nth-child(even) {
+            background: rgba(142, 30, 65, 0.05);
+        }
+        
+        .amount {
+            font-weight: bold;
+            color: var(--colef-blue);
+        }
+        
+        .collaboration-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .collab-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--colef-burgundy);
+        }
+        
+        .collab-icon {
+            font-size: 2.5rem;
+            color: var(--colef-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .gantt-container {
+            margin: 2rem 0;
+        }
+        
+        .footer-contact {
+            background: var(--colef-blue);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .total-budget {
+            background: linear-gradient(135deg, var(--colef-burgundy), #a52c55);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="colef-brand">
+                <div class="colef-logo">
+                    <img src="data:image/jpeg;base64,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">
+                </div>
+                <div>
+                    <h1>ICyDEMO - Plan Integral de Implementación</h1>
+                    <p class="tagline">Estimación de tiempos, recursos, costos y elementos de colaboración</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Resumen Ejecutivo -->
+        <div class="executive-summary">
+            <h2><i class="fas fa-clipboard-check"></i> Resumen Ejecutivo</h2>
+            <p>El Colegio de la Frontera Norte presenta este plan operativo detallado para el desarrollo del <strong>Índice de Competitividad y Desarrollo Económico Municipal de Oaxaca (ICyDEMO)</strong>. Este documento especifica los requerimientos de tiempo, recursos humanos, costos y elementos de colaboración necesarios para la ejecución exitosa del proyecto.</p>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-bullseye"></i> Objetivo Principal</h4>
+                <p>Desarrollar e implementar en <strong>9 meses</strong> una herramienta metodológica robusta y reproducible que permita diagnosticar y monitorear la competitividad de los 570 municipios de Oaxaca, con una inversión total de <strong>$2,640,000 MXN</strong>.</p>
+            </div>
+        </div>
+
+        <!-- 1. Estimación de Tiempos de Ejecución -->
+        <div class="section-card">
+            <h2><i class="fas fa-calendar-alt"></i> 1. Cronograma y Fases de Ejecución</h2>
+            <p>El proyecto se desarrollará en <strong>9 meses calendario</strong>, estructurado en 5 fases secuenciales con hitos claramente definidos:</p>
+            
+            <div class="timeline-container">
+                <div class="timeline-phase">
+                    <div class="phase-number">1</div>
+                    <h3>Fase de Diseño Conceptual</h3>
+                    <p><strong>Duración:</strong> 8 semanas</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Revisión teórica y de mejores prácticas</li>
+                        <li>Definición de dimensiones e indicadores</li>
+                        <li>Diseño de metodología preliminar</li>
+                    </ul>
+                    <div class="phase-duration">Mes 1-2</div>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-number">2</div>
+                    <h3>Recopilación y Procesamiento de Datos</h3>
+                    <p><strong>Duración:</strong> 8 semanas</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Identificación de fuentes oficiales</li>
+                        <li>Construcción de base de datos</li>
+                        <li>Limpieza y normalización de datos</li>
+                    </ul>
+                    <div class="phase-duration">Mes 3-4</div>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-number">3</div>
+                    <h3>Desarrollo Metodológico</h3>
+                    <p><strong>Duración:</strong> 8 semanas</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Construcción del índice compuesto</li>
+                        <li>Validación estadística</li>
+                        <li>Diseño de visualizaciones</li>
+                    </ul>
+                    <div class="phase-duration">Mes 5-6</div>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-number">4</div>
+                    <h3>Validación y Ajustes</h3>
+                    <p><strong>Duración:</strong> 4 semanas</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Pruebas de sensibilidad</li>
+                        <li>Revisión por pares expertos</li>
+                        <li>Ajustes metodológicos</li>
+                    </ul>
+                    <div class="phase-duration">Mes 7</div>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="phase-number">5</div>
+                    <h3>Documentación y Transferencia</h3>
+                    <p><strong>Duración:</strong> 8 semanas</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Elaboración de manuales técnicos</li>
+                        <li>Capacitación al personal</li>
+                        <li>Presentación de resultados</li>
+                    </ul>
+                    <div class="phase-duration">Mes 8-9</div>
+                </div>
+            </div>
+            
+            <!-- Diagrama de Gantt Interactivo -->
+            <div class="gantt-container">
+                <h3><i class="fas fa-chart-gantt"></i> Diagrama de Gantt del Proyecto</h3>
+                <div id="ganttChart" style="height: 400px; margin-top: 1rem;"></div>
+            </div>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-clock"></i> Entregables por Fase</h4>
+                <p>Cada fase concluye con entregables específicos que permiten monitorear el avance y garantizar la calidad del producto final:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>Fase 1:</strong> Marco conceptual y matriz de indicadores</li>
+                    <li><strong>Fase 2:</strong> Base de datos estructurada de 570 municipios</li>
+                    <li><strong>Fase 3:</strong> Modelo metodológico validado</li>
+                    <li><strong>Fase 4:</strong> Reporte de validación y ajustes</li>
+                    <li><strong>Fase 5:</strong> Manuales técnicos y capacitación</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. Recursos Humanos Requeridos -->
+        <div class="section-card">
+            <h2><i class="fas fa-users"></i> 2. Recursos Humanos y Estructura del Equipo</h2>
+            <p>El proyecto requiere un equipo multidisciplinario especializado en investigación regional, análisis de datos y desarrollo metodológico:</p>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3><i class="fas fa-user-tie"></i> Liderazgo Académico</h3>
+                    <span class="role-tag">Investigador Principal</span>
+                    <span class="role-tag">Co-Investigador</span>
+                    <p><strong>Dedicación:</strong> tiempo completo</p>
+                    <p><strong>Responsabilidades:</strong> Diseño metodológico, supervisión científica, validación, presentación y entrega de resultados.</p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3><i class="fas fa-laptop-code"></i> Especialistas Técnicos</h3>
+                    <span class="role-tag">Analista de Datos</span>
+                    <span class="role-tag">Programador</span>
+                    <span class="role-tag">Estadístico</span>
+                    <p><strong>Dedicación:</strong> 100% tiempo completo (2 personas)</p>
+                    <p><strong>Responsabilidades:</strong> Procesamiento de datos, desarrollo de algoritmos, implementación técnica, garantía de calidad.</p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3><i class="fas fa-map-marked-alt"></i> Expertos en Desarrollo Regional</h3>
+                    <span class="role-tag">Especialista Regional</span>
+                    <span class="role-tag">Consultor Temático</span>
+                    <p><strong>Dedicación:</strong> 30% tiempo parcial</p>
+                    <p><strong>Responsabilidades:</strong> Contextualización regional, validación de indicadores, vinculación con actores locales.</p>
+                </div>
+                
+                <div class="resource-card">
+                    <h3><i class="fas fa-tasks"></i> Apoyo y Gestión</h3>
+                    <span class="role-tag">Asistente de Investigación</span>
+                    <span class="role-tag">Gestor de Proyecto</span>
+                    <p><strong>Dedicación:</strong> 100% tiempo completo (1 persona)</p>
+                    <p><strong>Responsabilidades:</strong> Coordinación logística, administración, documentación, apoyo en capacitación.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-handshake"></i> Estructura de Gobernanza</h4>
+                <p>El proyecto contará con un <strong>Comité Técnico Asesor</strong> compuesto por:</p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>2 representantes de la institución financiadora</li>
+                    <li>3 investigadores senior de El Colef</li>
+                    <li>1 especialista externo en competitividad regional</li>
+                    <li>1 representante del gobierno de Oaxaca</li>
+                </ul>
+                <p style="margin-top: 0.5rem;"><strong>Frecuencia de reuniones:</strong> Mensual para seguimiento, trimestral para revisión estratégica.</p>
+            </div>
+        </div>
+
+        <!-- 3. Costos Asociados para el Desarrollo Metodológico -->
+        <div class="section-card">
+            <h2><i class="fas fa-calculator"></i> 3. Presupuesto Detallado del Proyecto</h2>
+            <p>Desglose de costos asociados al desarrollo metodológico del ICyDEMO (en pesos mexicanos):</p>
+            
+            <table class="budget-table">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Costo Unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Recursos Humanos</strong></td>
+                        <td>Honorarios del equipo de investigación</td>
+                        <td>6 personas</td>
+                        <td class="amount">$1,402,500</td>
+                        <td class="amount">$1,402,500</td>
+                    </tr>
+                    <tr>
+                        <td>• Investigadores principales</td>
+                        <td>Dedicación parcial (9 meses)</td>
+                        <td>2</td>
+                        <td>$50,000</td>
+                        <td>$900,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Especialistas técnicos</td>
+                        <td>Tiempo completo (9 meses)</td>
+                        <td>2</td>
+                        <td>$19,500</td>
+                        <td>$351,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Personal de apoyo</td>
+                        <td>Tiempo completo (9 meses)</td>
+                        <td>1</td>
+                        <td>$13,500</td>
+                        <td>$121,500</td>
+                    </tr>
+                    <tr>
+                        <td>• Consultores externos</td>
+                        <td>Honorarios por servicios especializados</td>
+                        <td>1</td>
+                        <td>$30,000</td>
+                        <td>$30,000</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>2. Infraestructura Tecnológica</strong></td>
+                        <td>Licencias software, servidores, almacenamiento</td>
+                        <td>9 meses</td>
+			<td class="amount"> </td>
+                        <td class="amount">$350,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Licencias de software estadístico</td>
+                        <td>Stata/R/Python (licencias institucionales)</td>
+                        <td>1</td>
+                        <td>$50,000</td>
+                        <td>$50,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Servidores y almacenamiento en la nube</td>
+                        <td>Plataforma para procesamiento y visualización</td>
+                        <td>9 meses</td>
+                        <td>$10,000/mes</td>
+                        <td>$90,000</td>
+                    </tr>
+
+		    <tr>
+                        <td>• Equipo</td>
+                        <td>MacBook Pro con Chip M5/HP Empresarial Fhd de 15.6"  (2)</td>
+                        <td>2</td>
+                        <td>$65,000</td>
+                        <td>$65,000</td>
+                    </tr>
+ 		    <tr>
+                        <td>• Equipo</td>
+                        <td>Impresora Multifuncional Laser A Color Xerox y 2 cartucho</td>
+                        <td>1</td>
+                        <td>$20,500</td>
+                        <td>$20,500</td>
+                    </tr>	
+                    <tr>
+                        <td>• Desarrollo de dashboard interactivo</td>
+                        <td>Programación y diseño de interfaz</td>
+                        <td>1</td>
+                        <td>$125,000</td>
+                        <td>$125,000</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>3. Trabajo de Campo y Validación</strong></td>
+                        <td>Viajes, talleres de validación, consultas</td>
+                        <td>-</td>
+                        <td class="amount">$193,000</td>
+                        <td class="amount">$193,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Viajes a Oaxaca</td>
+                        <td>6 viajes de 6 personas por 3 días</td>
+                        <td>6 viajes</td>
+                        <td>$14,500/viaje</td>
+                        <td>$87,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Talleres de validación metodológica</td>
+                        <td>2 talleres con actores clave en Oaxaca</td>
+                        <td>2 talleres</td>
+                        <td>$35,000/taller</td>
+                        <td>$70,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Consultas a expertos</td>
+                        <td>Honorarios para validación por pares</td>
+                        <td>3 expertos</td>
+                        <td>$12,000/experto</td>
+                        <td>$36,000</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>4. Materiales y Publicación</strong></td>
+                        <td>Documentación, diseño, difusión de resultados</td>
+                        <td>-</td>
+                        <td class="amount">$254,000</td>
+                        <td class="amount">$254,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Diseño y edición de manuales</td>
+                        <td>Manual técnico y guía de usuario</td>
+                        <td>2 manuales</td>
+                        <td>$60,000/manual</td>
+                        <td>$120,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Publicación de resultados</td>
+                        <td>Reporte ejecutivo, artículo académico, infografías</td>
+                        <td>1 set</td>
+                        <td>$84,000</td>
+                        <td>$84,000</td>
+                    </tr>
+                    <tr>
+                        <td>• Evento de presentación final</td>
+                        <td>Organización y logística</td>
+                        <td>1 evento</td>
+                        <td>$50,000</td>
+                        <td>$50,000</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>5. Gastos Indirectos (20%)</strong></td>
+                        <td>Administración, servicios institucionales, imprevistos</td>
+                        <td>-</td>
+                        <td class="amount">20%</td>
+                        <td class="amount">$440,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="total-budget">
+                <p>PRESUPUESTO TOTAL ESTIMADO (9 MESES): <span style="font-size: 2rem;">$2,640,000 MXN</span></p>
+                <p style="font-size: 1rem; margin-top: 0.5rem;">(Dos millones seiscientos cuarenta mil pesos 00/100 M.N.)</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-piggy-bank"></i> Notas Presupuestales</h4>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Todos los montos incluyen IVA cuando aplica</li>
+                    <li>El presupuesto considera una contingencia del 5% incluida en gastos indirectos</li>
+                    <li>Posibilidad de financiamiento escalonado según hitos de entrega</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. Elementos de Colaboración -->
+        <div class="section-card">
+            <h2><i class="fas fa-hands-helping"></i> 4. Elementos de Colaboración Propuestos</h2>
+            <p>Para garantizar el éxito y sostenibilidad del proyecto, proponemos los siguientes mecanismos de colaboración:</p>
+            
+            <div class="collaboration-elements">
+                <div class="collab-item">
+                    <div class="collab-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Acceso a Datos</h3>
+                    <p>Facilitación de información estadística oficial actualizada por parte del gobierno estatal.</p>
+                </div>
+                
+                <div class="collab-item">
+                    <div class="collab-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Contraparte Técnica</h3>
+                    <p>Designación de un enlace técnico del gobierno para coordinación y validación permanente.</p>
+                </div>
+                
+                <div class="collab-item">
+                    <div class="collab-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Capacitación Conjunta</h3>
+                    <p>Desarrollo de programas de formación para funcionarios en el uso del ICyDEMO.</p>
+                </div>
+                
+                <div class="collab-item">
+                    <div class="collab-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Actualización Periódica</h3>
+                    <p>Compromiso para actualizar el índice anualmente con apoyo técnico de El Colef.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-file-contract"></i> Acuerdos de Colaboración Específicos</h4>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li><strong>Memorándum de Entendimiento (MOU):</strong> Marco general de colaboración entre El Colef y la institución financiadora</li>
+                    <li><strong>Convenio de Confidencialidad:</strong> Para el manejo de datos sensibles o preliminares</li>
+                    <li><strong>Acuerdo de Propiedad Intelectual:</strong> El índice como bien público con reconocimiento institucional</li>
+                    <li><strong>Plan de Transferencia Tecnológica:</strong> Para la adopción y operación local del ICyDEMO</li>
+                </ul>
+            </div>
+            
+            <h3><i class="fas fa-tasks"></i> Compromisos de las Partes</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+                <div style="background: rgba(14, 58, 93, 0.05); padding: 1rem; border-radius: 5px;">
+                    <h4 style="color: var(--colef-blue);">El Colegio de la Frontera Norte</h4>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Garantizar calidad científica y rigor metodológico</li>
+                        <li>Entregar productos en tiempos establecidos</li>
+                        <li>Capacitar al personal designado</li>
+                        <li>Proporcionar soporte técnico durante 12 meses posteriores</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(142, 30, 65, 0.05); padding: 1rem; border-radius: 5px;">
+                    <h4 style="color: var(--colef-burgundy);">Institución Financiadora</h4>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Proveer datos oficiales actualizados</li>
+                        <li>Designar contraparte técnica permanente</li>
+                        <li>Facilitar acceso a actores clave para validación</li>
+                        <li>Financiar el proyecto según cronograma establecido</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información de Contacto -->
+        <div class="footer-contact">
+            <h3 style="color: white;">¿Preguntas o Requiere Más Información?</h3>
+            <div style="margin: 1.5rem 0;">
+                <p><strong>Dirección General de Asuntos académicos</strong></p>
+                <p><i class="fas fa-user-tie"></i> El Colegio de la Frontera Norte</p>
+                <p><i class="fas fa-envelope"></i> dgaa@colef.mx</p>
+                <p><i class="fas fa-phone"></i> +52 (664) 631 63 00</p>
+            </div>
+            <p style="margin-top: 1rem; opacity: 0.9;">Propuesta preeliminar. Contáctenos para comentar dudas específicas o responder cualquier consulta técnica o administrativa.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Datos para el diagrama de Gantt
+        const ganttData = [
+            {
+                Task: 'Fase 1: Diseño Conceptual',
+                Start: '2026-03-01',
+                End: '2026-03-28',
+                Completion: 100
+            },
+            {
+                Task: 'Fase 2: Recopilación de Datos',
+                Start: '2026-04-01',
+                End: '2026-05-12',
+                Completion: 80
+            },
+            {
+                Task: 'Fase 3: Desarrollo Metodológico',
+                Start: '2026-05-15',
+                End: '2026-06-19',
+                Completion: 60
+            },
+            {
+                Task: 'Fase 4: Validación y Ajustes',
+                Start: '2026-06-22',
+                End: '2026-07-19',
+                Completion: 40
+            },
+            {
+                Task: 'Fase 5: Documentación y Transferencia',
+                Start: '2026-07-22',
+                End: '2026-08-26',
+                Completion: 20
+            }
+        ];
+        
+        // Configuración del gráfico de Gantt
+        const trace = {
+            type: 'bar',
+            x: ganttData.map(d => d.End),
+            y: ganttData.map(d => d.Task),
+            base: ganttData.map(d => d.Start),
+            orientation: 'h',
+            marker: {
+                color: ganttData.map(d => {
+                    // Asignar colores según fase
+                    const phase = d.Task.split(':')[0];
+                    if (phase.includes('1')) return '#0E3A5D';
+                    if (phase.includes('2')) return '#5C8DBC';
+                    if (phase.includes('3')) return '#8B1E41';
+                    if (phase.includes('4')) return '#D39F10';
+                    return '#1abc9c';
+                }),
+                line: {
+                    color: 'white',
+                    width: 1
+                }
+            },
+            text: ganttData.map(d => `${d.Completion}%`),
+            textposition: 'inside',
+            insidetextanchor: 'middle'
+        };
+        
+        const layout = {
+            title: 'Cronograma de Ejecución del Proyecto ICyDEMO',
+            barmode: 'stack',
+            xaxis: {
+                type: 'date',
+                title: 'Timeline (Marzo - Agosto 2026)',
+                tickformat: '%b %d',
+                rangeselector: {
+                    buttons: [
+                        {count: 1, label: '1m', step: 'month', stepmode: 'backward'},
+                        {count: 3, label: '3m', step: 'month', stepmode: 'backward'},
+                        {step: 'all', label: 'Todo'}
+                    ]
+                }
+            },
+            yaxis: {
+                title: 'Fases del Proyecto',
+                automargin: true
+            },
+            height: 400,
+            margin: {l: 200, r: 50, t: 50, b: 50},
+            plot_bgcolor: '#f8f9fa',
+            paper_bgcolor: '#ffffff',
+            font: {family: 'Segoe UI, sans-serif', size: 12}
+        };
+        
+        // Inicializar gráfico cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            Plotly.newPlot('ganttChart', [trace], layout, {responsive: true});
+        });
+        
+        // Función para calcular el presupuesto total
+        function calcularTotal() {
+            const subtotales = [1200000, 450000, 400000, 300000];
+            const total = subtotales.reduce((a, b) => a + b, 0);
+            const indirectos = total * 0.15;
+            return total + indirectos;
+        }
+        
+        // Actualizar el total en el DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            const total = calcularTotal();
+            const formattedTotal = new Intl.NumberFormat('es-MX', {
+                style: 'currency',
+                currency: 'MXN',
+                minimumFractionDigits: 2
+            }).format(total);
+            
+            // Podemos mostrar el total calculado en consola para verificación
+            console.log(`Presupuesto total calculado: ${formattedTotal}`);
+        });
+    </script>
+</body>
+</html>
